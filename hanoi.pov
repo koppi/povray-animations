@@ -99,7 +99,7 @@ tower_of_hanoi(NumStones, "1", "3", "2")
   #local HalfH     = StoneH / 2;
   #local T = Id / (NumStones - 1) * 6;
 //  reportT(T)
-  #switch (Id)
+  #switch (min(floor(T), 5))
     #case (0)
       #local Col = rgb <1, T, 0>;
     #break
