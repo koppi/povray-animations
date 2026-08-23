@@ -11,19 +11,25 @@ the scene throughout.
 
 ## Files
 
-- `hanoi.pov` — scene and animation logic (disk generation, move solver, camera, lighting)
-- `hanoi.ini` — render settings (resolution, frame range, quality, antialiasing)
-- `Makefile` — build targets
+- `hanoi.pov` — scene and animation logic (disk/peg generation, move solver, camera, lighting)
+- `hanoi.ini` — render settings (resolution, quality, antialiasing)
+- `GNUmakefile` — build targets
 
 ## Usage
 
-Render the animation frames:
+Render the animation frames (5 disks, the default):
 
 ```sh
 make
 ```
 
-This runs `povray hanoi.ini`, producing a sequence of PNG frames (`hanoi_*.png`).
+This runs `povray +KFF620 hanoi.ini`, producing a sequence of PNG frames (`hanoi_*.png`).
+
+Render a 7-disk solve instead:
+
+```sh
+make 7-stones
+```
 
 Remove rendered output:
 
@@ -34,8 +40,10 @@ make clean
 ### Options
 
 The number of disks is controlled by `NumStones` (default `5`) in `hanoi.pov`.
-The required frame count for a full solve is `(2^NumStones - 1) * FramesPerMove`;
-adjust `final_frame` in `hanoi.ini` accordingly if you change `NumStones`.
+The required frame count for a full solve is `(2^NumStones - 1) * FramesPerMove`
+(`FramesPerMove` is `20`); each `GNUmakefile` target passes the matching
+`+KFF<frame count>` to `povray` — see the `7-stones` target for an example
+when using a different `NumStones`.
 
 ## License
 
