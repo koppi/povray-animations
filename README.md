@@ -45,6 +45,10 @@ The required frame count for a full solve is `(2^NumStones - 1) * FramesPerMove`
 `+KFF<frame count>` to `povray` — see the `7-stones` target for an example
 when using a different `NumStones`.
 
+## Credits
+
+- jr <creature.eternal@gmail.com> — misc fixes
+
 ## License
 
 CC0 1.0 Universal — see [LICENSE](LICENSE).
