@@ -11,7 +11,7 @@ global_settings { assumed_gamma 1.0 }
 #declare MaxStoneR  = StoneBaseR + (NumStones - 1) * StoneStepR;
 
 #declare PegR         = 0.15;
-#declare PegHeadR     = PegR * 1.8;
+#declare PegHeadR     = PegR;
 #declare PegSpacing   = MaxStoneR * 2 + 0.8;
 #declare StoneHoleR   = PegR + 0.03;
 #declare StoneFilletR = StoneH * 0.35;
