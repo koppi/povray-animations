@@ -11,10 +11,11 @@ global_settings { assumed_gamma 1.0 }
 #declare MaxStoneR  = StoneBaseR + (NumStones - 1) * StoneStepR;
 
 #declare PegR         = 0.15;
+#declare PegHeadR     = PegR * 1.8;
 #declare PegSpacing   = MaxStoneR * 2 + 0.8;
 #declare StoneHoleR   = PegR + 0.03;
 #declare StoneFilletR = StoneH * 0.35;
-#declare PegHeight    = NumStones * StoneH + 2.0;
+#declare PegHeight    = NumStones * StoneH + 1.4;
 
 #declare TorusTubeR  = 0.4;
 #declare TorusMajorR = (PegSpacing + MaxStoneR) * 0.55;
@@ -189,8 +190,7 @@ torus {
   translate <0, TorusY, 0>
 }
 
-cylinder {
-  <0, PlatformY - PlatformH / 2, 0>, <0, PlatformY + PlatformH / 2, 0>, PlatformR
+#declare BoardTexture = texture {
   pigment {
     wood
     turbulence 0.05
@@ -204,11 +204,16 @@ cylinder {
   finish { phong 0.3 phong_size 20 diffuse 0.7 ambient 0.1 }
 }
 
+cylinder {
+  <0, PlatformY - PlatformH / 2, 0>, <0, PlatformY + PlatformH / 2, 0>, PlatformR
+  texture { BoardTexture }
+}
+
 #for (P, 0, 2)
-  cylinder {
-    <PegX[P], BaseY, 0>, <PegX[P], PegTopY, 0>, PegR
-    pigment { color rgb <0.75, 0.75, 0.75> }
-    finish { phong 0.6 phong_size 40 diffuse 0.6 ambient 0.1 }
+  union {
+    cylinder { <PegX[P], BaseY, 0>, <PegX[P], PegTopY, 0>, PegR }
+    sphere { <PegX[P], PegTopY, 0>, PegHeadR }
+    texture { BoardTexture }
   }
 #end
 
