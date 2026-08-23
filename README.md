@@ -7,7 +7,7 @@ then animates each move as a stone lifting off its peg, arcing over to the
 destination peg, and dropping onto the stack — with the camera slowly orbiting
 the scene throughout.
 
-[![Watch the animation on YouTube](https://img.youtube.com/vi/JSnKv-jSox8/maxresdefault.jpg)](https://youtu.be/JSnKv-jSox8)
+[![Watch the animation on YouTube](https://img.youtube.com/vi/pzjSfkN2DG4/maxresdefault.jpg)](https://youtu.be/pzjSfkN2DG4)
 
 ## Files
 
