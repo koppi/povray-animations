@@ -88,7 +88,7 @@ tower_of_hanoi(NumStones, "1", "3", "2")
 #declare FramesPerMove = 20;
 #declare TotalFrames = MaxMoves * FramesPerMove;
 
-#debug concat("hanoi-recursive.pov: ", str(NumStones,0,0), " stones, ", str(MaxMoves,0,0),
+#debug concat("hanoi.pov: ", str(NumStones,0,0), " stones, ", str(MaxMoves,0,0),
               " moves, recommended Final_Frame=", str(TotalFrames,0,0), "\n")
 
 #macro Stone(Id)
