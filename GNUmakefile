@@ -5,4 +5,4 @@ all:
 	povray Declare=NumStones=7 +KFF2540 hanoi.ini
 
 clean:
-	rm -f *.png *.mp4 alltext.out
+	rm -f *.png *.mp4 *.pov-state alltext.out
