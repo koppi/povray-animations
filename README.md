@@ -23,9 +23,10 @@ Render the animation frames (5 disks, the default):
 make
 ```
 
-This runs `povray +KFF620 hanoi.ini`, producing a sequence of PNG frames (`hanoi_*.png`).
+`make` is an alias for `make 5-stones`, and runs `povray Declare=NumStones=5 +KFF620 hanoi.ini`,
+producing a sequence of PNG frames (`hanoi_*.png`).
 
-Render a 7-disk solve instead:
+Render a different number of disks with the `<n>-stones` pattern target, e.g. for 7 disks:
 
 ```sh
 make 7-stones
@@ -39,11 +40,10 @@ make clean
 
 ### Options
 
-The number of disks is controlled by `NumStones` (default `5`) in `hanoi.pov`.
-The required frame count for a full solve is `(2^NumStones - 1) * FramesPerMove`
-(`FramesPerMove` is `20`); each `GNUmakefile` target passes the matching
-`+KFF<frame count>` to `povray` — see the `7-stones` target for an example
-when using a different `NumStones`.
+The number of disks is controlled by the `<n>-stones` target, which sets `NumStones=n`
+in `hanoi.pov`. The `GNUmakefile` derives the matching frame count for a full solve as
+`(2^n - 1) * FramesPerMove` (`FramesPerMove` is `20`) and passes it to `povray` as
+`+KFF<frame count>`.
 
 ## Credits
 

@@ -1,8 +1,11 @@
-all:
-	povray +KFF620 hanoi.ini
+SHELL := /bin/bash
 
-7-stones:
-	povray Declare=NumStones=7 +KFF2540 hanoi.ini
+FramesPerMove := 20
+
+all: 5-stones
+
+%-stones:
+	povray Declare=NumStones=$* +KFF$$(( (2**$* - 1) * $(FramesPerMove) )) hanoi.ini
 
 clean:
 	rm -f *.png *.mp4 *.pov-state alltext.out
