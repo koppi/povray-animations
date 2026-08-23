@@ -7,6 +7,8 @@ then animates each move as a stone lifting off its peg, arcing over to the
 destination peg, and dropping onto the stack — with the camera slowly orbiting
 the scene throughout.
 
+[![Watch the animation on YouTube](https://img.youtube.com/vi/JSnKv-jSox8/maxresdefault.jpg)](https://youtu.be/JSnKv-jSox8)
+
 ## Files
 
 - `hanoi.pov` — scene and animation logic (disk generation, move solver, camera, lighting)
