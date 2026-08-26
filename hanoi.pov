@@ -190,16 +190,30 @@ torus {
   translate <0, TorusY, 0>
 }
 
+#declare BoardPigment = pigment {
+  wood
+  turbulence 0.05
+  color_map {
+    [0.0 color rgb <0.35, 0.12, 0.06>]
+    [0.5 color rgb <0.20, 0.05, 0.02>]
+    [1.0 color rgb <0.35, 0.12, 0.06>]
+  }
+  scale 4
+}
+
+// The raw wood grain has no rotational symmetry, so the platform/peg texture
+// visibly jumped at the loop seam even after the camera+light fix (the last
+// frame views it from 180 degrees around, revealing a different part of the
+// pattern). Averaging it with its own 180-degree-about-Y rotated copy forces
+// exact P(x,y,z) = P(-x,y,-z) symmetry, matching the same peg1<->peg3 mirror
+// symmetry the camera orbit already relies on, so the grain lines up too.
 #declare BoardTexture = texture {
   pigment {
-    wood
-    turbulence 0.05
-    color_map {
-      [0.0 color rgb <0.35, 0.12, 0.06>]
-      [0.5 color rgb <0.20, 0.05, 0.02>]
-      [1.0 color rgb <0.35, 0.12, 0.06>]
+    average
+    pigment_map {
+      [1 BoardPigment]
+      [1 BoardPigment rotate <0, 180, 0>]
     }
-    scale 4
   }
   finish { phong 0.3 phong_size 20 diffuse 0.7 ambient 0.1 }
 }
