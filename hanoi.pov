@@ -240,18 +240,28 @@ cylinder {
   }
 #end
 
+#macro OrbitY(V, Ang)
+  #local S = sin(Ang);
+  #local C = cos(Ang);
+  <V.x * C - V.z * S, V.y, V.x * S + V.z * C>
+#end
+
 #declare SceneR     = PlatformR * 1.5;
 #declare SceneLookY = (PegTopY + StoneH * 2) / 2;
 #declare CamPosBase = <SceneR * 9, SceneR * 11, SceneR * 9>;
 #declare CamDist    = sqrt(CamPosBase.x*CamPosBase.x + CamPosBase.y*CamPosBase.y + CamPosBase.z*CamPosBase.z);
 #declare CamFovDeg  = degrees(2 * atan(max(SceneR, SceneLookY * 2) * 1.08 / CamDist));
 
-#declare CameraAngle = GlobalStep * 0.005;
-#declare CamPos = <
-  CamPosBase.x * cos(CameraAngle) - CamPosBase.z * sin(CameraAngle),
-  CamPosBase.y,
-  CamPosBase.x * sin(CameraAngle) + CamPosBase.z * cos(CameraAngle)
->;
+// Camera sweeps exactly half a turn (0 -> pi) over the whole clip, independent
+// of NumStones/TotalFrames. The peg layout and platform are mirror-symmetric
+// about the Y axis, so at clock=1 the tower (now on peg 3) viewed from the
+// 180-degree-rotated camera reproduces the clock=0 view of the tower on peg 1,
+// which is what makes the render loop cleanly. Lights orbit with the camera
+// (same OrbitY/CameraAngle) so their bearing relative to the camera - and thus
+// the shadows - stays constant instead of flipping to the opposite side by
+// the last frame.
+#declare CameraAngle = clock * pi;
+#declare CamPos = OrbitY(CamPosBase, CameraAngle);
 
 camera {
   location CamPos
@@ -261,5 +271,5 @@ camera {
   sky <0, 1, 0>
 }
 
-light_source { <SceneR * 6, SceneR * 10, -SceneR * 4> color rgb <1, 1, 0.95> }
-light_source { <-SceneR * 5, SceneR * 6, SceneR * 5> color rgb <0.35, 0.35, 0.45> shadowless }
+light_source { OrbitY(<SceneR * 6, SceneR * 10, -SceneR * 4>, CameraAngle) color rgb <1, 1, 0.95> }
+light_source { OrbitY(<-SceneR * 5, SceneR * 6, SceneR * 5>, CameraAngle) color rgb <0.35, 0.35, 0.45> shadowless }
