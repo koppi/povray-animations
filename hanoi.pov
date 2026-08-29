@@ -29,13 +29,6 @@ global_settings { assumed_gamma 1.0 }
 
 #declare PegX = array[3] { -PegSpacing, 0, PegSpacing }
 
-
-#macro reportT(t_)
-  #local s_ = concat("frm: ",str(frame_number,0,0),"  T: ", str(t_,0,4));
-  #debug concat(s_,"\n")
-#end
-
-
 #macro SlotWorldY(Slot)
   #local R = BaseY + StoneH / 2 + Slot * StoneH;
   R
@@ -86,7 +79,12 @@ global_settings { assumed_gamma 1.0 }
 
 tower_of_hanoi(NumStones, "1", "3", "2")
 
-#declare FramesPerMove = 20;
+#ifndef (FramesPerMove)
+  #declare FramesPerMove = 20;
+#elseif (int(FramesPerMove) != FramesPerMove)
+  #error "oops, 'FramesPerMove' must be an integer."
+#end
+
 #declare TotalFrames = MaxMoves * FramesPerMove;
 
 #debug concat("hanoi.pov: ", str(NumStones,0,0), " stones, ", str(MaxMoves,0,0),
@@ -98,7 +96,6 @@ tower_of_hanoi(NumStones, "1", "3", "2")
   #local HalfCoreH = (StoneH - 2 * StoneFilletR) / 2;
   #local HalfH     = StoneH / 2;
   #local T = Id / (NumStones - 1) * 6;
-//  reportT(T)
   #switch (min(floor(T), 5))
     #case (0)
       #local Col = rgb <1, T, 0>;
